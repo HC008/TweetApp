@@ -36,12 +36,14 @@ public class TweetGUI extends JApplet implements ActionListener {
     mainPanel.add(submit);
     mainPanel.add(area);
     
+    //Adds a scoll bar to the text area
     scroll = new JScrollPane(area, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, 
                                       ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     
     
     mainPanel.add(scroll);
     
+    //Giving listeners to the buttons to detect an action
     browse.addActionListener(this);
     submit.addActionListener(this);
     
