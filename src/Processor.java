@@ -21,14 +21,14 @@ public class Processor {
    * It reads in all of the data from the CSV file.
    * 
    * @param data - String array list.
-   * @param fileName - name of file to be read in.
+   * @param filePath - path of file to be read in.
    * @return tweets - the filled up list of records.
    */
-  public List<TweetRecord> readCsv(List<TweetRecord> tweets, String fileName) {
+  public List<TweetRecord> readCsv(List<TweetRecord> tweets, String filePath) {
    
     try {
 
-      CSVReader file = new CSVReader(new FileReader(fileName));
+      CSVReader file = new CSVReader(new FileReader(filePath));
       List<String[]> data = new ArrayList<String[]>();
       String [] nextLine;
       int lineNumber = 3;
@@ -37,6 +37,7 @@ public class Processor {
         data.add(nextLine);
       }
       
+      //Creating the object while reading the lines of data from the file
       while (lineNumber >= 3 && lineNumber < data.size() - 2) {
         tweets.add(new TweetRecord(data.get(lineNumber)[0], data.get(lineNumber)[1], 
                                    data.get(lineNumber)[2], data.get(lineNumber)[3],
@@ -74,7 +75,7 @@ public class Processor {
     int small = 0, large = 0;
     List<TweetRecord> nonDuplicate = new ArrayList<TweetRecord>();
     
-    //Test which file size is smaller than the other and then compare it in two separate loops
+    //Test which file size is smaller than the other and then call a method to check for duplicate
     if (csvOne.size() < csvTwo.size() || csvOne.size() == csvTwo.size()) {
       //First file is smaller than second file
       small = csvOne.size();
@@ -119,12 +120,12 @@ public class Processor {
     } //end of outer for loop
     
     
-    //Loading all data into filtered list
+    //Loading all of the data into  the list
     filtered = less;
     
-    for (int m = 0; m < little; m++) {
-      if (less.get(m).getFlag() == 0) {
-        filtered.add(less.get(m));
+    for (int m = 0; m < big; m++) {
+      if (more.get(m).getFlag() == 0) {
+        filtered.add(more.get(m));
       }
     }
     
