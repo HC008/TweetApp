@@ -46,7 +46,6 @@ public class TweetGUI extends JApplet implements ActionListener {
     mainPanel.add(fields[1]);
     mainPanel.add(browse);
     mainPanel.add(submit);
-    
     mainPanel.add(help);
     
     //Prevents anyone from editing the area of the printed results.
