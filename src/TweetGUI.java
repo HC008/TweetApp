@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JApplet;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -52,9 +53,18 @@ public class TweetGUI extends JApplet implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (e.getSource().equals(submit)) {
-      area.append("Hello World! \n");
+    
+    if (e.getSource().equals(browse)) {
+      
+      //Opens up a window to allow users to select a file
+      JFileChooser fileSelect = new JFileChooser();
+      int selection = fileSelect.showOpenDialog(this);
+      
     }
+    else if (e.getSource().equals(submit)) {
+      area.append("Done \n");
+    }
+    
     
   }
   
