@@ -116,6 +116,15 @@ public class TweetGUI extends JApplet implements ActionListener {
         
       }
     }
+    else if (e.getSource().equals(help)) {
+      
+      //Tutorial
+      area.setText("");
+      
+      area.append("Tutorial:\n\n");
+      area.append("1. Click on Browse and then select the two files you want to compare.\n");
+      area.append("2. Now click on Submit to start data processing.");
+    }
     
     
   }
