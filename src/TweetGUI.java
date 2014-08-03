@@ -25,7 +25,7 @@ public class TweetGUI extends JApplet implements ActionListener {
   private JPanel mainPanel = new JPanel();
   private JLabel fileOne = new JLabel("File One"), fileTwo = new JLabel("File Two");
   private JButton submit = new JButton("Submit"), browse = new JButton("Browse"), 
-                  help = new JButton("Help");
+                  reset = new JButton("Reset"), help = new JButton("Help");
   
   private JTextField[] fields = {new JTextField(30), new JTextField(30)};
   private JTextArea area = new JTextArea(40, 100);
@@ -46,6 +46,7 @@ public class TweetGUI extends JApplet implements ActionListener {
     mainPanel.add(fields[1]);
     mainPanel.add(browse);
     mainPanel.add(submit);
+    mainPanel.add(reset);
     mainPanel.add(help);
     
     //Prevents anyone from editing the area of the printed results.
@@ -61,6 +62,7 @@ public class TweetGUI extends JApplet implements ActionListener {
     //Giving listeners to the buttons to detect an action
     browse.addActionListener(this);
     submit.addActionListener(this);
+    reset.addActionListener(this);
     help.addActionListener(this);
     
     this.add(mainPanel);
@@ -124,7 +126,19 @@ public class TweetGUI extends JApplet implements ActionListener {
       area.append("1. Click on Browse and then select the two files you want to compare.\n");
       area.append("2. Now click on Submit to start data processing.");
     }
-    
+    else if (e.getSource().equals(reset)) {
+      
+      //Clears everything
+      for (int i = 0; i < fields.length; i++) {
+        fields[i].setText("");
+      }
+      
+      for (int j = 0; j < files.length; j++) {
+        files[j] = null;
+      }
+      
+      area.setText("");
+    }
     
   }
   
