@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -28,6 +29,7 @@ public class TweetGUI extends JApplet implements ActionListener {
                   reset = new JButton("Reset"), help = new JButton("Help");
   
   private JTextField[] fields = {new JTextField(30), new JTextField(30)};
+  private Font normalFont = new Font("TimesNewRoman", Font.PLAIN, 16);
   private JTextArea area = new JTextArea(40, 100);
   private JScrollPane scroll;
   private List<TweetRecord> dataOne = new ArrayList<TweetRecord>();
@@ -35,6 +37,7 @@ public class TweetGUI extends JApplet implements ActionListener {
   private List<TweetRecord> allData = new ArrayList<TweetRecord>();
   private Processor process = new Processor();
   private File[] files;
+  
   
   public void init() {
     //Adding content to the app by adding things to panel etc
@@ -110,6 +113,8 @@ public class TweetGUI extends JApplet implements ActionListener {
         
         int lineNumber = 1;
         
+        area.setFont(normalFont);
+        
         for (int i = 0; i < allData.size(); i++) {
           area.append(lineNumber + ". " + allData.get(i).toString() + "\n\n");
           lineNumber++;
@@ -120,11 +125,14 @@ public class TweetGUI extends JApplet implements ActionListener {
     else if (e.getSource().equals(help)) {
       
       //Tutorial
-      area.setText("");
       
-      area.append("Tutorial:\n\n");
+      area.setFont(normalFont);
+      area.append("How to use:\n\n");
       area.append("1. Click on Browse and then select the two files you want to compare.\n");
-      area.append("2. Now click on Submit to start data processing.");
+      area.append("2. Now click on Submit to start data processing.\n\n");
+ 
+      area.append("Other features:\n\n");
+      area.append("Click Reset to clear everything.");
     }
     else if (e.getSource().equals(reset)) {
       
@@ -133,8 +141,10 @@ public class TweetGUI extends JApplet implements ActionListener {
         fields[i].setText("");
       }
       
-      for (int j = 0; j < files.length; j++) {
-        files[j] = null;
+      if (files != null) {
+        for (int j = 0; j < files.length; j++) {
+          files[j] = null;
+        }
       }
       
       area.setText("");
