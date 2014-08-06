@@ -125,7 +125,6 @@ public class TweetGUI extends JApplet implements ActionListener {
     else if (e.getSource().equals(help)) {
       
       //Tutorial
-      
       area.setFont(normalFont);
       area.append("How to use:\n\n");
       area.append("1. Click on Browse and then select the two files you want to compare.\n");
