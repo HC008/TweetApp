@@ -73,6 +73,7 @@ public class TweetGUI extends JApplet implements ActionListener {
     mainPanel.add(scroll);
     
     //Area to print out status or any other information.
+    area.setEditable(false);
     mainPanel.add(area);
     
     //Giving listeners to the buttons to detect an action
