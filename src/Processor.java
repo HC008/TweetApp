@@ -33,11 +33,13 @@ public class Processor {
       String [] nextLine;
       int lineNumber = 3;
       
+      //Reading in all of the lines of text etc from the CSV file
       while ((nextLine = file.readNext()) != null) {
         data.add(nextLine);
       }
       
-      //Creating the object while reading the lines of data from the file
+      //Creating the object while reading the lines of data, but 
+      //omitting the column names and the last two lines
       while (lineNumber >= 3 && lineNumber < data.size() - 2) {
         tweets.add(new TweetRecord(data.get(lineNumber)[0], data.get(lineNumber)[1], 
                                    data.get(lineNumber)[2], data.get(lineNumber)[3],

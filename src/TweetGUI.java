@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
@@ -22,7 +24,8 @@ public class TweetGUI extends JApplet implements ActionListener {
   
   
   private static final long serialVersionUID = 1L;
-  //Panel acts like desk for you to put things on
+  
+  //Components of the Applet
   private JPanel mainPanel = new JPanel();
   private JLabel fileOne = new JLabel("File One"), fileTwo = new JLabel("File Two");
   private JButton submit = new JButton("Submit"), browse = new JButton("Browse"), 
@@ -30,11 +33,18 @@ public class TweetGUI extends JApplet implements ActionListener {
   
   private JTextField[] fields = {new JTextField(30), new JTextField(30)};
   private Font normalFont = new Font("TimesNewRoman", Font.PLAIN, 16);
-  private JTextArea area = new JTextArea(40, 100);
+  private JTextArea area = new JTextArea(10, 50);
   private JScrollPane scroll;
   private List<TweetRecord> dataOne = new ArrayList<TweetRecord>();
   private List<TweetRecord> dataTwo = new ArrayList<TweetRecord>();
   private List<TweetRecord> allData = new ArrayList<TweetRecord>();
+  
+  //Table
+  private JTable dataTable;
+  private TweetModel model = new TweetModel();
+  private String[][] rowData = new String[0][9];
+  
+  //Misc.
   private Processor process = new Processor();
   private File[] files;
   
@@ -52,15 +62,18 @@ public class TweetGUI extends JApplet implements ActionListener {
     mainPanel.add(reset);
     mainPanel.add(help);
     
-    //Prevents anyone from editing the area of the printed results.
-    area.setEditable(false);
-    mainPanel.add(area);
-    
-    //Adds a scoll bar to the text area
-    scroll = new JScrollPane(area, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, 
-                                      ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    
+    //Creating the table 
+    model.addTableModelListener(dataTable);
+    dataTable = new JTable(model);
+    dataTable.setPreferredScrollableViewportSize(new Dimension(1200, 500));
+    mainPanel.add(dataTable);
+    scroll = new JScrollPane(dataTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, 
+                                        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
     mainPanel.add(scroll);
+    
+    //Area to print out status or any other information.
+    mainPanel.add(area);
     
     //Giving listeners to the buttons to detect an action
     browse.addActionListener(this);
@@ -103,23 +116,34 @@ public class TweetGUI extends JApplet implements ActionListener {
       }
       else {
         
-        //Clears away previous data
-        area.setText("");
-        
+        //Reading in the data to two separate list and then filtered things into one list
         dataOne = process.readCsv(dataOne, files[0].getPath());
         dataTwo = process.readCsv(dataTwo, files[1].getPath());
         
         allData = process.checkFileSize(dataOne, dataTwo);
         
-        int lineNumber = 1;
-        
-        area.setFont(normalFont);
+        //Loading the data to the table
+        rowData = new String[allData.size()][9];
         
         for (int i = 0; i < allData.size(); i++) {
-          area.append(lineNumber + ". " + allData.get(i).toString() + "\n\n");
-          lineNumber++;
+          
+          rowData[i][0] = allData.get(i).getTweetDate();
+          rowData[i][1] = allData.get(i).getHandle();
+          rowData[i][2] = allData.get(i).getName();
+          rowData[i][3] = allData.get(i).getText();
+          rowData[i][4] = allData.get(i).getUrl();
+          rowData[i][5] = allData.get(i).getPlatform();
+          rowData[i][6] = allData.get(i).getType();
+          rowData[i][7] = allData.get(i).getRetweetCount();
+          rowData[i][8] = allData.get(i).getFavoriteCount();
+           
         }
         
+        //Notifying the table to load the changes
+        model.setRowData(rowData);
+        dataTable = new JTable(model); 
+        model.fireTableDataChanged();
+       
       }
     }
     else if (e.getSource().equals(help)) {
@@ -130,8 +154,8 @@ public class TweetGUI extends JApplet implements ActionListener {
       area.append("1. Click on Browse and then select the two files you want to compare.\n");
       area.append("2. Now click on Submit to start data processing.\n\n");
  
-      area.append("Other features:\n\n");
-      area.append("Click Reset to clear everything.");
+      //area.append("Other features:\n\n");
+      //area.append("Click Reset to clear everything.");
     }
     else if (e.getSource().equals(reset)) {
       
