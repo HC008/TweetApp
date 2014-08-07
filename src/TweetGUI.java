@@ -75,6 +75,10 @@ public class TweetGUI extends JApplet implements ActionListener {
     //Area to print out status or any other information.
     area.setEditable(false);
     mainPanel.add(area);
+    scroll = new JScrollPane(area, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, 
+                                          ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+    
+    mainPanel.add(scroll);
     
     //Giving listeners to the buttons to detect an action
     browse.addActionListener(this);
@@ -149,14 +153,17 @@ public class TweetGUI extends JApplet implements ActionListener {
     }
     else if (e.getSource().equals(help)) {
       
+      //Clears away text.
+      area.setText("");
+      
       //Tutorial
       area.setFont(normalFont);
       area.append("How to use:\n\n");
-      area.append("1. Click on Browse and then select the two files you want to compare.\n");
-      area.append("2. Now click on Submit to start data processing.\n\n");
+      area.append("\t1. Click on Browse and then select the two files you want to compare.\n");
+      area.append("\t2. Now click on Submit to start data processing.\n\n");
  
-      //area.append("Other features:\n\n");
-      //area.append("Click Reset to clear everything.");
+      area.append("Other features:\n\n");
+      area.append("\tClick Reset to clear everything.");
     }
     else if (e.getSource().equals(reset)) {
       
