@@ -24,12 +24,14 @@ public class Processor {
    * @param filePath - path of file to be read in.
    * @return tweets - the filled up list of records.
    */
-  public List<TweetRecord> readCsv(List<TweetRecord> tweets, String filePath) {
+  public List<TweetRecord> readCsv(String filePath) {
    
+    List<String[]> data = new ArrayList<String[]>();
+    List<TweetRecord> tweets = new ArrayList<TweetRecord>();
+    
     try {
 
       CSVReader file = new CSVReader(new FileReader(filePath));
-      List<String[]> data = new ArrayList<String[]>();
       String [] nextLine;
       int lineNumber = 3;
       

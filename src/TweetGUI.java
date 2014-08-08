@@ -29,7 +29,7 @@ public class TweetGUI extends JApplet implements ActionListener {
   //Components of the Applet
   private JPanel mainPanel = new JPanel();
   private JLabel fileOne = new JLabel("File One"), fileTwo = new JLabel("File Two");
-  private JButton submit = new JButton("Submit"), browse = new JButton("Browse"), 
+  private JButton browse = new JButton("Browse"), submit = new JButton("Submit"),
                   reset = new JButton("Reset"), help = new JButton("Help");
   
   private JCheckBox multiple = new JCheckBox("Multiple Files");
@@ -48,7 +48,7 @@ public class TweetGUI extends JApplet implements ActionListener {
   
   //Misc.
   private Processor process = new Processor();
-  private File[] files;
+  private File[] files = new File[2];
   private File singleFile;
   
   
@@ -70,6 +70,7 @@ public class TweetGUI extends JApplet implements ActionListener {
     model.addTableModelListener(dataTable);
     dataTable = new JTable(model);
     dataTable.setPreferredScrollableViewportSize(new Dimension(1200, 500));
+    dataTable.getTableHeader().setReorderingAllowed(false);
     mainPanel.add(dataTable);
     scroll = new JScrollPane(dataTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, 
                                         ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -120,12 +121,14 @@ public class TweetGUI extends JApplet implements ActionListener {
           }
         
         }
-        else if (!(multiple.isSelected())){
+        else {
           singleFile = fileSelect.getSelectedFile();
           
           if (fields[0].getText().equals("") && fields[1].getText().equals("")) {
+            
             fields[0].setText(singleFile.getName());
             files[0] = singleFile;
+            
           }
           else {
             fields[1].setText(singleFile.getName());
@@ -142,10 +145,9 @@ public class TweetGUI extends JApplet implements ActionListener {
       }
       else {
         
-        System.out.println(files[0].getPath() + "  " + files[1].getPath());
         //Reading in the data to two separate list and then filtered things into one list
-        dataOne = process.readCsv(dataOne, files[0].getPath());
-        dataTwo = process.readCsv(dataTwo, files[1].getPath());
+        dataOne = process.readCsv(files[0].getPath());
+        dataTwo = process.readCsv(files[1].getPath());
         
         allData = process.checkFileSize(dataOne, dataTwo);
         
@@ -166,6 +168,9 @@ public class TweetGUI extends JApplet implements ActionListener {
            
         }
         
+        //Refreshes the table to clear away previous data and add in new data
+        dataTable.removeAll();
+        model.fireTableDataChanged();
         //Notifying the table to load the changes
         model.setRowData(rowData);
         dataTable = new JTable(model); 
