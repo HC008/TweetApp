@@ -70,6 +70,7 @@ public class TweetGUI extends JApplet implements ActionListener {
     model.addTableModelListener(dataTable);
     dataTable = new JTable(model);
     dataTable.setPreferredScrollableViewportSize(new Dimension(1200, 500));
+    //Reordering of the columns is not allow
     dataTable.getTableHeader().setReorderingAllowed(false);
     mainPanel.add(dataTable);
     scroll = new JScrollPane(dataTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, 
