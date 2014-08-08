@@ -176,16 +176,7 @@ public class TweetGUI extends JApplet implements ActionListener {
         model.setRowData(rowData);
         dataTable = new JTable(model); 
         model.fireTableDataChanged();
-        
-        int temp = 1;
-        
-        for (int b = 0; b < allData.size(); b++) {
-          System.out.println(temp + ". " + allData.get(b).toString());
-          temp++;
-        }
-        
-        temp = 0;
-              
+                
       }
     }
     else if (e.getSource().equals(help)) {
