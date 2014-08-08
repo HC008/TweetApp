@@ -150,7 +150,7 @@ public class TweetGUI extends JApplet implements ActionListener {
         dataOne = process.readCsv(files[0].getPath());
         dataTwo = process.readCsv(files[1].getPath());
         
-        allData = process.checkFileSize(dataOne, dataTwo);
+        allData = process.checkDuplicate(dataOne, dataTwo);
         
         //Loading the data to the table
         rowData = new String[allData.size()][9];
@@ -176,7 +176,16 @@ public class TweetGUI extends JApplet implements ActionListener {
         model.setRowData(rowData);
         dataTable = new JTable(model); 
         model.fireTableDataChanged();
-       
+        
+        int temp = 1;
+        
+        for (int b = 0; b < allData.size(); b++) {
+          System.out.println(temp + ". " + allData.get(b).toString());
+          temp++;
+        }
+        
+        temp = 0;
+              
       }
     }
     else if (e.getSource().equals(help)) {

@@ -15,8 +15,6 @@ public class TweetRecord implements Comparable<TweetRecord>{
   private String type; 
   private String retweetCount; 
   private String favoriteCount; 
-  private int flag;
-  
  
   /**
    * Constructing the lines of information.
@@ -43,7 +41,7 @@ public class TweetRecord implements Comparable<TweetRecord>{
     this.type = type; 
     this.retweetCount = retweetCount; 
     this.favoriteCount = favoriteCount; 
-    flag = 0;    
+    
   }
   
 
@@ -209,24 +207,6 @@ public class TweetRecord implements Comparable<TweetRecord>{
     this.favoriteCount = favoriteCount;
   }
   
-  /**
-   * Represents the signal to remove the comment from the file.
-   * 
-   * @return flag - signal.
-   */
-  public int getFlag() {
-    return flag;
-  }
-  
-  /**
-   * Gives a value so it signals to remove the comment.
-   * 
-   * @param flag - signal.
-   */
-  public void setFlag(int flag) {
-    this.flag = flag;
-  }
-  
   
   @Override
   /**
@@ -270,6 +250,28 @@ public class TweetRecord implements Comparable<TweetRecord>{
     else {
       return this.getTweetDate().compareTo(rec.getTweetDate());
     }
+  }
+  
+  @Override
+  /**
+   * Calculates the hash code.
+   * return result = calculated hash code.
+   */
+  public int hashCode() {
+    int hash = 31;
+    int result = 1;
+    
+    result = hash * result + Integer.parseInt(retweetCount);
+    result = hash * result + Integer.parseInt(favoriteCount);
+    result = hash * result + (null == tweetDate ? 0 : tweetDate.hashCode());
+    result = hash * result + (null == handle ? 0 : handle.hashCode());
+    result = hash * result + (null == name ? 0 : name.hashCode());
+    result = hash * result + (null == text ? 0 : text.hashCode());
+    result = hash * result + (null == url ? 0 : url.hashCode());
+    result = hash * result + (null == platform ? 0 : platform.hashCode());
+    result = hash * result + (null == type ? 0 : type.hashCode());
+    
+    return result;
   }
   
   @Override

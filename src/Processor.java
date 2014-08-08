@@ -2,7 +2,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import au.com.bytecode.opencsv.CSVReader;
 
 /**
@@ -66,73 +69,22 @@ public class Processor {
  
     return tweets;
   }
-  
-  
-  
+ 
   /**
-   * To compare which file has the most lines of data before.
+   * Takes data from two files and then remove duplicates with the use of a Set.
    * 
-   * @param csvOne - first file.
-   * @param csvTwo - second file.
+   * @param first - file one.
+   * @param second - file two.
+   * @return filtered - a list of all the data without duplicates.
    */
-  public List<TweetRecord> checkFileSize(List<TweetRecord> csvOne, List<TweetRecord> csvTwo) {
-    int small = 0, large = 0;
-    List<TweetRecord> nonDuplicate = new ArrayList<TweetRecord>();
-    
-    //Test which file size is smaller than the other and then call a method to check for duplicate
-    if (csvOne.size() < csvTwo.size() || csvOne.size() == csvTwo.size()) {
-      //First file is smaller than second file
-      small = csvOne.size();
-      large = csvTwo.size();
-      
-      nonDuplicate = checkDuplicate(csvOne, csvTwo, nonDuplicate, small, large);
-    }
-    else {
-      //Second file is smaller than first file
-      small = csvTwo.size();
-      large = csvOne.size();
-      
-      nonDuplicate = checkDuplicate(csvTwo, csvOne, nonDuplicate, small, large);
-    } 
-    
-    return nonDuplicate;
-  }
-  
-  /**
-   * Checks for duplicate comments in the data then filtered into a list.
-   * 
-   * @param less - the file with less content.
-   * @param more - the file with more content.
-   * @param filtered - for storing the filtered out data.
-   * @param little - small file size.
-   * @param big - larger file size.
-   * 
-   * @return filtered - the data that contains both time difference duplicates and non duplicates.
-   */
-  public List<TweetRecord> checkDuplicate(List<TweetRecord> less, List<TweetRecord> more, 
-                                            List<TweetRecord> filtered, int little, int big) {
+  public List<TweetRecord> checkDuplicate(List<TweetRecord> first, List<TweetRecord> second) {
+    List<TweetRecord> filtered;
+    Set<TweetRecord> noDuplicate = new HashSet<TweetRecord>();
 
-    //Checks which one is duplicate and flag it to not be included in the final data.
-    for (int i = 0; i < little; i++) {
-      for (int j = 0; j < big; j++) {
-        
-        if (more.get(j).equals(less.get(i)) && more.get(j).getFlag() == 0) {
-         more.get(j).setFlag(1);
-        }
-        
-      } //end of inner for loop
-    } //end of outer for loop
+    noDuplicate.addAll(first);
+    noDuplicate.addAll(second);
     
-    
-    //Loading all of the data into  the list
-    filtered = less;
-    
-    for (int m = 0; m < big; m++) {
-      if (more.get(m).getFlag() == 0) {
-        filtered.add(more.get(m));
-      }
-    }
-    
+    filtered = new ArrayList<TweetRecord>(noDuplicate);
     
     return filtered;
     
