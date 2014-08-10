@@ -1,7 +1,7 @@
 /**
  * Representing the row of data from the CSV file.
  * 
- * @author Hansen Cheng and Micah Angeles
+ * @author Hansen Cheng, Micah Angeles, Jason Delos Reyes
  *
  */
 public class TweetRecord implements Comparable<TweetRecord>{

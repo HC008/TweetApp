@@ -3,7 +3,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import au.com.bytecode.opencsv.CSVReader;
@@ -11,7 +10,7 @@ import au.com.bytecode.opencsv.CSVReader;
 /**
  * To perform various action for the main program.
  * 
- * @author Hansen Cheng & Micah Angeles
+ * @author Hansen Cheng, Micah Angeles, Jason Delos Reyes
  *
  */
 public class Processor {

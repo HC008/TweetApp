@@ -21,6 +21,16 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 
+/**
+ * Interface to the application that allows one to input two CSV files
+ * of Twitter tweets and filtered out duplicates between the two files.
+ * 
+ * Tool to extract data from the CSV files was obtained from the following
+ * website - http://opencsv.sourceforge.net/
+ * 
+ * @author Hansen Cheng, Micah Angeles, Jason Delos Reyes
+ *
+ */
 public class TweetGUI extends JApplet implements ActionListener {
   
   

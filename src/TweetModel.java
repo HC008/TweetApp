@@ -3,7 +3,7 @@ import javax.swing.table.AbstractTableModel;
 /**
  * Modified table model to include our own data.
  * 
- * @author Hansen Cheng and Micah Angeles
+ * @author Hansen Cheng, Micah Angeles, Jason Delos Reyes
  *
  */
 public class TweetModel extends AbstractTableModel {
