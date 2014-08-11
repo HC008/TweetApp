@@ -41,6 +41,7 @@ public class Processor {
       while ((nextLine = file.readNext()) != null) {
         data.add(nextLine);
       }
+     
       
       //Creating the object while reading the lines of data, but 
       //omitting the column names and the last two lines
