@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JApplet;
@@ -18,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import au.com.bytecode.opencsv.CSVWriter;
 
 
 /**
@@ -39,7 +42,8 @@ public class TweetGUI extends JApplet implements ActionListener {
   private JPanel mainPanel = new JPanel();
   private JLabel fileOne = new JLabel("File One"), fileTwo = new JLabel("File Two");
   private JButton browse = new JButton("Browse"), submit = new JButton("Submit"),
-                  reset = new JButton("Reset"), help = new JButton("Help");
+                  save = new JButton("Save"), reset = new JButton("Reset"), 
+                  help = new JButton("Help");
    
   private JTextField[] fields = {new JTextField(30), new JTextField(30)};
   private Font normalFont = new Font("TimesNewRoman", Font.PLAIN, 16);
@@ -70,6 +74,7 @@ public class TweetGUI extends JApplet implements ActionListener {
     mainPanel.add(fields[1]);
     mainPanel.add(browse);
     mainPanel.add(submit);
+    mainPanel.add(save);
     mainPanel.add(reset);
     mainPanel.add(help);
     
@@ -96,6 +101,7 @@ public class TweetGUI extends JApplet implements ActionListener {
     //Giving listeners to the buttons to detect an action
     browse.addActionListener(this);
     submit.addActionListener(this);
+    save.addActionListener(this);
     reset.addActionListener(this);
     help.addActionListener(this);
     
@@ -201,22 +207,24 @@ public class TweetGUI extends JApplet implements ActionListener {
                 
       }
     }
-    else if (e.getSource().equals(help)) {
+    
+    else if (e.getSource().equals(save)) {
       
-      //Clears away text.
-      area.setText("");
+      JFileChooser fileSave = new JFileChooser();
+      int saveSelect = fileSave.showDialog(TweetGUI.this, "Save");
       
-      //Tutorial
-      area.setFont(normalFont);
-      area.append("How to use:\n\n");
-      area.append("\t1. Select Multiple Files checkbox if want to select multiple files.\n" +
-      		        "\t    If don't want to select multiple files then jump to step 2.\n\n");
-      
-      area.append("\t2.Click on Browse and then select the two files you want to compare.\n\n");
-      area.append("\t3. Now click on Submit to start data processing.\n\n");
- 
-      area.append("Other features:\n\n");
-      area.append("\tClick Reset to clear everything.");
+      //try {
+        //CSVWriter writer = new CSVWriter(new FileWriter("yourfile.csv"), '\t');
+        // feed in your array (or convert your data to an array)
+        //String[] entries = "first#second#third".split("#");
+        //writer.writeNext(entries);
+        //writer.close();
+      //}
+      //catch (IOException e1) {
+        // TODO Auto-generated catch block
+        //e1.printStackTrace();
+      //}
+     
     }
     else if (e.getSource().equals(reset)) {
       
@@ -233,7 +241,23 @@ public class TweetGUI extends JApplet implements ActionListener {
       
       area.setText("");
     }
-    
+    else if (e.getSource().equals(help)) {
+      
+      //Clears away text.
+      area.setText("");
+      
+      //Tutorial
+      area.setFont(normalFont);
+      area.append("How to use:\n\n");
+      area.append("\t1. Select Multiple Files checkbox if want to select multiple files.\n" +
+      		        "\t    If don't want to select multiple files then jump to step 2.\n\n");
+      
+      area.append("\t2.Click on Browse and then select the two files you want to compare.\n\n");
+      area.append("\t3. Now click on Submit to start data processing.\n\n");
+ 
+      area.append("Other features:\n\n");
+      area.append("\tClick Reset to clear everything.");
+    }  
   }
   
 }
