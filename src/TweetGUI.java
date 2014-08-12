@@ -58,7 +58,7 @@ public class TweetGUI extends JApplet implements ActionListener {
   private Processor process = new Processor();
   private File[] files = new File[2];
   private File singleFile;
-  private int fileSignal = 0;
+  private int fileSignal = 0; //To signal when to put the file's name in the respective text field
   
   public void init() {
     //Adding content to the app by adding things to panel etc
@@ -113,6 +113,8 @@ public class TweetGUI extends JApplet implements ActionListener {
       int selection = fileSelect.showDialog(TweetGUI.this, "Select");
       
       if (selection == JFileChooser.APPROVE_OPTION) {
+        
+        //Multiple file selection
         if (fileSelect.getSelectedFiles().length == 2) {
         
           files = fileSelect.getSelectedFiles();
@@ -129,14 +131,18 @@ public class TweetGUI extends JApplet implements ActionListener {
           fileSignal = 1;
         }
         else {
+          
+          //Select a file one file at a time
           singleFile = fileSelect.getSelectedFile();
           
+          //Puts name of file into the first text field when both fields are blank
           if (fields[0].getText().equals("") && fields[1].getText().equals("")) {
             
             fields[0].setText(singleFile.getName());
             files[0] = singleFile;
             
           }
+          //Put the new single file's name into the first text field when both fields are filled up
           else if (!fields[0].getText().isEmpty() 
                     && !fields[1].getText().isEmpty() && fileSignal == 1) {
             
@@ -145,6 +151,7 @@ public class TweetGUI extends JApplet implements ActionListener {
             fileSignal = 0;
             
           }
+          //Puts the name of the file into the second text field
           else {
             fields[1].setText(singleFile.getName());
             files[1] = singleFile;
