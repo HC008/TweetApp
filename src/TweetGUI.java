@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JApplet;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -41,8 +40,7 @@ public class TweetGUI extends JApplet implements ActionListener {
   private JLabel fileOne = new JLabel("File One"), fileTwo = new JLabel("File Two");
   private JButton browse = new JButton("Browse"), submit = new JButton("Submit"),
                   reset = new JButton("Reset"), help = new JButton("Help");
-  
-  private JCheckBox multiple = new JCheckBox("Multiple Files");
+   
   private JTextField[] fields = {new JTextField(30), new JTextField(30)};
   private Font normalFont = new Font("TimesNewRoman", Font.PLAIN, 16);
   private JTextArea area = new JTextArea(10, 50);
@@ -60,7 +58,7 @@ public class TweetGUI extends JApplet implements ActionListener {
   private Processor process = new Processor();
   private File[] files = new File[2];
   private File singleFile;
-  
+  private int fileSignal = 0;
   
   public void init() {
     //Adding content to the app by adding things to panel etc
@@ -71,7 +69,6 @@ public class TweetGUI extends JApplet implements ActionListener {
     mainPanel.add(fileTwo);
     mainPanel.add(fields[1]);
     mainPanel.add(browse);
-    mainPanel.add(multiple);
     mainPanel.add(submit);
     mainPanel.add(reset);
     mainPanel.add(help);
@@ -98,7 +95,6 @@ public class TweetGUI extends JApplet implements ActionListener {
     
     //Giving listeners to the buttons to detect an action
     browse.addActionListener(this);
-    multiple.addActionListener(this);
     submit.addActionListener(this);
     reset.addActionListener(this);
     help.addActionListener(this);
@@ -117,9 +113,8 @@ public class TweetGUI extends JApplet implements ActionListener {
       int selection = fileSelect.showDialog(TweetGUI.this, "Select");
       
       if (selection == JFileChooser.APPROVE_OPTION) {
-        if (multiple.isSelected()) {
+        if (fileSelect.getSelectedFiles().length == 2) {
         
-          
           files = fileSelect.getSelectedFiles();
           
           //Sets both text fields to be empty first to ensure that the previous selection is gone
@@ -130,7 +125,8 @@ public class TweetGUI extends JApplet implements ActionListener {
           for (int i = 0; i < files.length; i++) {
             fields[i].setText(files[i].getName());
           }
-        
+          
+          fileSignal = 1;
         }
         else {
           singleFile = fileSelect.getSelectedFile();
@@ -141,9 +137,18 @@ public class TweetGUI extends JApplet implements ActionListener {
             files[0] = singleFile;
             
           }
+          else if (!fields[0].getText().isEmpty() 
+                    && !fields[1].getText().isEmpty() && fileSignal == 1) {
+            
+            fields[0].setText(singleFile.getName());
+            files[0] = singleFile;
+            fileSignal = 0;
+            
+          }
           else {
             fields[1].setText(singleFile.getName());
             files[1] = singleFile;
+            fileSignal = 1;
           }
         }
       }
