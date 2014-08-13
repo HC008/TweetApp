@@ -218,17 +218,23 @@ public class TweetGUI extends JApplet implements ActionListener {
       JFileChooser fileSave = new JFileChooser();
       int saveSelect = fileSave.showDialog(TweetGUI.this, "Save");
       
-      //try {
-        //CSVWriter writer = new CSVWriter(new FileWriter("yourfile.csv"), '\t');
-        // feed in your array (or convert your data to an array)
-        //String[] entries = "first#second#third".split("#");
-        //writer.writeNext(entries);
-        //writer.close();
-      //}
-      //catch (IOException e1) {
-        // TODO Auto-generated catch block
-        //e1.printStackTrace();
-      //}
+      if (saveSelect == JFileChooser.APPROVE_OPTION) {
+        try {
+          CSVWriter writer = new CSVWriter(new FileWriter(fileSave.getSelectedFile().getAbsolutePath()));
+          
+          for (int i = 0; i < allData.size(); i++) {
+            String[] entries = allData.get(i).toString().split("  ");
+            writer.writeNext(entries);
+          }
+          
+          writer.close();
+        }
+        catch (IOException e1) {
+          //TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
+      }
+      
      
     }
     else if (e.getSource().equals(reset)) {
