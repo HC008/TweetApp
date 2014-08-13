@@ -57,5 +57,11 @@ public class TweetModel extends AbstractTableModel {
     this.rowData = rowData;
   }
   
+  public String columnNames() {
+    return colNames[0] + "," + colNames[1] + "," + colNames[2] + "," + colNames[3] + "," +
+                   colNames[4] + "," + colNames[5] + "," + colNames[6] + "," + colNames[7] + "," +
+                   colNames[8];
+  } 
+  
 
 }

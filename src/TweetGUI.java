@@ -222,6 +222,10 @@ public class TweetGUI extends JApplet implements ActionListener {
         try {
           CSVWriter writer = new CSVWriter(new FileWriter(fileSave.getSelectedFile().getAbsolutePath()));
           
+          String[] titles = model.columnNames().split(",");
+          
+          writer.writeNext(titles);
+          
           for (int i = 0; i < allData.size(); i++) {
             String[] entries = allData.get(i).toString().split("  ");
             writer.writeNext(entries);
