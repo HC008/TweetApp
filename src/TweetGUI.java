@@ -180,6 +180,14 @@ public class TweetGUI extends JApplet implements ActionListener {
         
         allData = process.checkDuplicate(dataOne, dataTwo);
         
+        //Clears away stuff just in case the user forgot to pressed the rest button
+        if (rowData != null) {
+          rowData = new String[0][9];
+          model.setRowData(rowData);
+          dataTable = new JTable(model);
+          model.fireTableDataChanged();
+        }
+        
         //Loading the data to the table
         rowData = new String[allData.size()][9];
         
@@ -197,9 +205,6 @@ public class TweetGUI extends JApplet implements ActionListener {
            
         }
         
-        //Refreshes the table to clear away previous data and add in new data
-        dataTable.removeAll();
-        model.fireTableDataChanged();
         //Notifying the table to load the changes
         model.setRowData(rowData);
         dataTable = new JTable(model); 
@@ -238,6 +243,15 @@ public class TweetGUI extends JApplet implements ActionListener {
           files[j] = null;
         }
       }
+      
+      if (allData.size() != 0) {
+        allData.removeAll(allData);
+      }
+      
+      rowData = new String[0][9];
+      model.setRowData(rowData);
+      dataTable = new JTable(model);
+      model.fireTableDataChanged();
       
       area.setText("");
     }
