@@ -9,9 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -33,7 +33,7 @@ import au.com.bytecode.opencsv.CSVWriter;
  * @author Hansen Cheng, Micah Angeles, Jason Delos Reyes
  *
  */
-public class TweetGUI extends JApplet implements ActionListener {
+public class TweetGUI extends JFrame implements ActionListener {
   
   
   private static final long serialVersionUID = 1L;
@@ -64,7 +64,12 @@ public class TweetGUI extends JApplet implements ActionListener {
   private File singleFile;
   private int fileSignal = 0; //To signal when to put the file's name in the respective text field
   
-  public void init() {
+  public TweetGUI() {
+    
+    this.setSize(500, 500);
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.setVisible(true);
+    
     //Adding content to the app by adding things to panel etc
     mainPanel.setLayout(new FlowLayout());
     mainPanel.setBackground(Color.decode("#00CCFF"));
@@ -296,6 +301,10 @@ public class TweetGUI extends JApplet implements ActionListener {
       area.append("Other features:\n\n");
       area.append("\tClick Reset to clear everything.");
     }  
+  }
+  
+  public static void main(String[] args) {
+    new TweetGUI();
   }
   
 }
