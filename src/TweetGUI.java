@@ -212,7 +212,7 @@ public class TweetGUI extends JApplet implements ActionListener {
                 
       }
     }
-    
+    //Save a file
     else if (e.getSource().equals(save)) {
       
       JFileChooser fileSave = new JFileChooser();
@@ -220,14 +220,28 @@ public class TweetGUI extends JApplet implements ActionListener {
       
       if (saveSelect == JFileChooser.APPROVE_OPTION) {
         try {
-          CSVWriter writer = new CSVWriter(new FileWriter(fileSave.getSelectedFile().getAbsolutePath()));
+          
+          String fileName = fileSave.getSelectedFile().getAbsolutePath();
+          CSVWriter writer = new CSVWriter(new FileWriter(fileName));
           
           String[] titles = model.columnNames().split(",");
           
           writer.writeNext(titles);
           
           for (int i = 0; i < allData.size(); i++) {
-            String[] entries = allData.get(i).toString().split("  ");
+            //To contain the information from each row for each category
+            String[] entries = new String[9];
+            
+            entries[0] = allData.get(i).getTweetDate();
+            entries[1] = allData.get(i).getHandle();
+            entries[2] = allData.get(i).getName();
+            entries[3] = allData.get(i).getText();
+            entries[4] = allData.get(i).getUrl();
+            entries[5] = allData.get(i).getPlatform();
+            entries[6] = allData.get(i).getType();
+            entries[7] = allData.get(i).getRetweetCount();
+            entries[8] = allData.get(i).getFavoriteCount();
+            
             writer.writeNext(entries);
           }
           
