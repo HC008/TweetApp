@@ -68,7 +68,7 @@ public class TweetRecord implements Comparable<TweetRecord>{
    */
   public int getTweetDay() {
 	  
-	  tweetDay = getTweetDate().day;
+	 // tweetDay = getTweetDate().day;
 	  
 	  return tweetDay;
   }
@@ -80,7 +80,7 @@ public class TweetRecord implements Comparable<TweetRecord>{
    */
   public int getTweetMonth() {
 	  
-	  tweetMonth = getTweetDate().month;
+	  //tweetMonth = getTweetDate().month;
 	  
 	  return tweetMonth;
   }
