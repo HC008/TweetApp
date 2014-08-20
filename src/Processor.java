@@ -56,6 +56,8 @@ public class Processor {
       }
       
       lineNumber = 0;
+      //Closes the file after being read in.
+      file.close();
      
     }
     catch (FileNotFoundException e) {
