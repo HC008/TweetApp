@@ -7,6 +7,13 @@
 public class TweetRecord implements Comparable<TweetRecord>{
   
   private String tweetDate;
+  
+  private String tweetDay;    // Extract each 
+  private String tweetMonth;  // value in 
+  private String tweetYear;   // the twitter 
+  private String tweetHour;   // date and time
+  private String tweetMin;    // column for extraction.
+  
   private String handle; 
   private String name; 
   private String text; 
@@ -52,6 +59,41 @@ public class TweetRecord implements Comparable<TweetRecord>{
    */
   public String getTweetDate() {
     return tweetDate;
+    
+  }
+  /**
+   * Return value of day value of tweet data.
+   */
+  public String getTweetDay() {
+	  return tweetDay;
+  }
+  
+  /**
+   * Return value of month of tweet data.
+   */
+  public String getTweetMonth() {
+	  return tweetMonth;
+  }
+  
+  /**
+   * Return value of year of tweet data.
+   */
+  public String getTweetYear(){
+	  return tweetYear;
+  }
+  
+  /**
+   * Return value of hour of tweet data.
+   */
+  public String getTweetHour(){
+	  return tweetHour;
+  }
+  
+  /**
+   * Return value of minute of tweet data.
+   */
+  public String getTweetMin(){
+	  return tweetMin;
   }
   
   /**
