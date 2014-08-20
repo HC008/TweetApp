@@ -20,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import au.com.bytecode.opencsv.CSVWriter;
 
 
@@ -221,7 +222,8 @@ public class TweetGUI extends JFrame implements ActionListener {
     else if (e.getSource().equals(save)) {
       
       JFileChooser fileSave = new JFileChooser();
-      fileSave.setFileFilter(new FilterFileType());
+      FileNameExtensionFilter filter = new FileNameExtensionFilter("Comma Separated Value", "csv");
+      fileSave.setFileFilter(filter);
       fileSave.setDialogTitle("Save File");
       int saveSelect = fileSave.showDialog(TweetGUI.this, "Save");
       
@@ -231,31 +233,40 @@ public class TweetGUI extends JFrame implements ActionListener {
       if (saveSelect == JFileChooser.APPROVE_OPTION) {
         try {
           
-          String fileName = fileSave.getSelectedFile().getAbsolutePath();
-          CSVWriter writer = new CSVWriter(new FileWriter(fileName));
-          
-          String[] titles = model.columnNames().split(",");
-          
-          writer.writeNext(titles);
-          
-          for (int i = 0; i < allData.size(); i++) {
-            //To contain the information from each row for each category
-            String[] entries = new String[9];
+          if (fileSave.getFileFilter().equals(filter)) {
             
-            entries[0] = allData.get(i).getTweetDate();
-            entries[1] = allData.get(i).getHandle();
-            entries[2] = allData.get(i).getName();
-            entries[3] = allData.get(i).getText();
-            entries[4] = allData.get(i).getUrl();
-            entries[5] = allData.get(i).getPlatform();
-            entries[6] = allData.get(i).getType();
-            entries[7] = allData.get(i).getRetweetCount();
-            entries[8] = allData.get(i).getFavoriteCount();
+            String fileName = fileSave.getSelectedFile().getAbsolutePath();
             
-            writer.writeNext(entries);
+            //Test if the user provided an extension or not. 
+            //If user didn't then append extension to file name.
+            if (!fileName.contains(".csv")) {
+              fileName += ".csv";
+            }
+            
+            CSVWriter writer = new CSVWriter(new FileWriter(fileName));
+            
+            String[] titles = model.columnNames().split(",");
+            
+            writer.writeNext(titles);
+            
+            for (int i = 0; i < allData.size(); i++) {
+              //To contain the information from each row for each category
+              String[] entries = new String[9];
+              
+              entries[0] = allData.get(i).getTweetDate();
+              entries[1] = allData.get(i).getHandle();
+              entries[2] = allData.get(i).getName();
+              entries[3] = allData.get(i).getText();
+              entries[4] = allData.get(i).getUrl();
+              entries[5] = allData.get(i).getPlatform();
+              entries[6] = allData.get(i).getType();
+              entries[7] = allData.get(i).getRetweetCount();
+              entries[8] = allData.get(i).getFavoriteCount();
+              
+              writer.writeNext(entries);
+            }
+            writer.close();
           }
-          
-          writer.close();
         }
         catch (IOException e1) {
           //TODO Auto-generated catch block
