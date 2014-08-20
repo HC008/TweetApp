@@ -221,8 +221,13 @@ public class TweetGUI extends JFrame implements ActionListener {
     else if (e.getSource().equals(save)) {
       
       JFileChooser fileSave = new JFileChooser();
+      fileSave.setFileFilter(new FilterFileType());
+      fileSave.setDialogTitle("Save File");
       int saveSelect = fileSave.showDialog(TweetGUI.this, "Save");
       
+      /*
+       * User clicks Save and then it saves the contents to the place where the user specified.
+       */
       if (saveSelect == JFileChooser.APPROVE_OPTION) {
         try {
           
