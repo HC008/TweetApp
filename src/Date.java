@@ -75,15 +75,15 @@ public class Date {
 		  public static void main(String[] args) throws ParseException {
 			  
 		        java.util.Date temp1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
-		                .parse("20/08/2117 04:45:25");
+		                .parse("20/08/2014 04:45:25");
 		        java.util.Date temp2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
-                .parse("10/11/2017 23:11:48");
+                .parse("10/11/3001 23:11:48");
 		        java.util.Date temp3 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
                 .parse("13/01/1989 12:41:28");
 		        
 		        System.out.println("Times are in chronological order: ");
-		        System.out.println("Time 1: (Past) " +temp3.getTime());
-		        System.out.println("Time 2: (Now) " +temp1.getTime());
+		        System.out.println("Time 1: (Past)    " +temp3.getTime());
+		        System.out.println("Time 2: (Now)    " +temp1.getTime());
 		        System.out.println("Time 3: (Future) " +temp2.getTime());
 		        
 		        System.out.println();
