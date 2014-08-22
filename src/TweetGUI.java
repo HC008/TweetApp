@@ -67,7 +67,8 @@ public class TweetGUI extends JFrame implements ActionListener {
   
   public TweetGUI() {
     
-    this.setSize(500, 500);
+    //Set the properties of the JFrame
+    this.setSize(2000, 2000);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setVisible(true);
     
@@ -165,12 +166,14 @@ public class TweetGUI extends JFrame implements ActionListener {
           }
           //Puts the name of the file into the second text field
           else {
+            
             fields[1].setText(singleFile.getName());
             files[1] = singleFile;
             fileSignal = 1;
-          }
-        }
-      }
+            
+          } //end inner else statement
+        } // end else statement 
+      } //end if statement
       
     }
     else if (e.getSource().equals(submit)) {
@@ -186,6 +189,7 @@ public class TweetGUI extends JFrame implements ActionListener {
         
         allData = process.checkDuplicate(dataOne, dataTwo);
         
+       
         //Clears away stuff just in case the user forgot to pressed the rest button
         if (rowData != null) {
           rowData = new String[0][9];
