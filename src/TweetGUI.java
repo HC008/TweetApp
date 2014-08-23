@@ -188,8 +188,7 @@ public class TweetGUI extends JFrame implements ActionListener {
         dataTwo = process.readCsv(files[1].getPath());
         
         allData = process.checkDuplicate(dataOne, dataTwo);
-        
-       
+  
         //Clears away stuff just in case the user forgot to pressed the rest button
         if (rowData != null) {
           rowData = new String[0][9];
