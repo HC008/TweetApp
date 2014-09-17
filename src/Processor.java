@@ -2,6 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,7 +31,7 @@ public class Processor {
    
     List<String[]> data = new ArrayList<String[]>();
     List<TweetRecord> tweets = new ArrayList<TweetRecord>();
-    
+    String dateFormat = new String ("\\d{2}/\\d{2}/\\d{4} \\d{2}:\\d{2}:\\d{2}");
     try {
 
       CSVReader file = new CSVReader(new FileReader(filePath));
@@ -46,6 +47,11 @@ public class Processor {
       //Creating the object while reading the lines of data, but 
       //omitting the column names and the last two lines
       while (lineNumber >= 3 && lineNumber < data.size() - 2) {
+        
+        if (data.get(lineNumber)[0].matches(dateFormat) == false) {
+          data.get(lineNumber)[0] = formatDate(data.get(lineNumber)[0]);
+        }
+        
         tweets.add(new TweetRecord(data.get(lineNumber)[0], data.get(lineNumber)[1], 
                                    data.get(lineNumber)[2], data.get(lineNumber)[3],
                                    data.get(lineNumber)[4], data.get(lineNumber)[5],
@@ -91,5 +97,49 @@ public class Processor {
     return filtered;
     
   }
+  
+  /**
+   * Reformats the TweetDate to the format of dd/mm/yyyy hh:mm:ss.
+   * 
+   * @param original - the TweetDate string read in from the CSV file.
+   * @return
+   */
+  public String formatDate(String original) {
+    
+    //Splits the original string at the space
+    String[] tempDate = original.split(" ");
+    
+    //Split the date part by the slash
+    String[] dates = tempDate[0].split("/");
+    
+    //Split the time part by the colon
+    String[] times = tempDate[1].split(":");
+    
+    //Checks for the parts that is only one number. 
+    //If it is then append a 0 to the front and also 
+    //change the year to yyyy format.
+    for (int i = 0; i < dates.length; i++) {
+      if (dates[i].length() == 1) {
+        dates[i] = "0" + dates[i];
+      }
+      
+      if (i == dates.length - 1) {
+        dates[i] = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
+      }
+    }
+    
+    //Checks if the time value is only one number,
+    //if it is then append a 0 to the front
+    for (int j = 0; j < times.length; j++) {
+      if (times[j].length() == 1) {
+        times[j] = "0" + times[j];
+      }
+    }
+    
+    
+    return dates[0] + "/" + dates[1] + "/" + dates[2] + " " + times[0] + ":" + times[1] + ":00";
+    
+  }
+ 
   
 }
