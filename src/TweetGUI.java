@@ -197,6 +197,10 @@ public class TweetGUI extends JFrame implements ActionListener {
           model.fireTableDataChanged();
         }
         
+        QuickSort sort = new QuickSort(allData);
+        sort.quickSort(allData);
+        allData = sort.getRecord();
+        
         //Loading the data to the table
         rowData = new String[allData.size()][9];
         
