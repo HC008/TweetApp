@@ -48,7 +48,7 @@ public class TweetGUI extends JFrame implements ActionListener {
    
   private JTextField[] fields = {new JTextField(30), new JTextField(30)};
   private Font normalFont = new Font("TimesNewRoman", Font.PLAIN, 16);
-  private JTextArea area = new JTextArea(6, 50);
+  private JTextArea area = new JTextArea(7, 50);
   private JScrollPane scroll;
   private List<TweetRecord> dataOne = new ArrayList<TweetRecord>();
   private List<TweetRecord> dataTwo = new ArrayList<TweetRecord>();
