@@ -73,6 +73,7 @@ public class TweetGUI extends JFrame implements ActionListener {
     this.setVisible(true);
     
     //Adding content to the app by adding things to panel etc
+    mainPanel.setSize(2000, 2000);
     mainPanel.setLayout(new FlowLayout());
     mainPanel.setBackground(Color.decode("#00CCFF"));
     mainPanel.add(fileOne);
