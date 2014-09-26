@@ -67,10 +67,6 @@ public class TweetGUI extends JFrame implements ActionListener {
   
   public TweetGUI() {
     
-    //Set the properties of the JFrame
-    this.setSize(2000, 2000);
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setVisible(true);
     
     //Adding content to the app by adding things to panel etc
     mainPanel.setSize(2000, 2000);
@@ -113,6 +109,10 @@ public class TweetGUI extends JFrame implements ActionListener {
     reset.addActionListener(this);
     help.addActionListener(this);
     
+    //Set the properties of the JFrame
+    this.setSize(2000, 2000);
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.setVisible(true);
     this.add(mainPanel);
   }
 
