@@ -315,15 +315,17 @@ public class TweetGUI extends JFrame implements ActionListener {
       
       //Tutorial
       area.setFont(normalFont);
-      area.append("How to use:\n\n");
-      area.append("\t1. Select Multiple Files checkbox if want to select multiple files.\n" +
-      		        "\t    If don't want to select multiple files then jump to step 2.\n\n");
       
-      area.append("\t2.Click on Browse and then select the two files you want to compare.\n\n");
-      area.append("\t3. Now click on Submit to start data processing.\n\n");
+      area.append("How to use:\n\n");
+      area.append("1. Click on Browse to select the files you want to laod in.\n\n");
+      
+      area.append("2. Click on Browse and then select the two files you want to compare.\n\n");
+      area.append("3. Now click on Submit to start data processing.\n\n");
+      area.append("4. Click on Save and type in necessary information to save \n" +
+                  "   the filtered data as a CSV file.\n\n");
  
       area.append("Other features:\n\n");
-      area.append("\tClick Reset to clear everything.");
+      area.append("\nClick Reset to clear everything.");
     }  
   }
   
